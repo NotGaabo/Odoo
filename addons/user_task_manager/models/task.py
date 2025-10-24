@@ -18,3 +18,21 @@ class UserTask(models.model):
         string='Estado',
         default='draft'
     )
+    deadline = fields.Date(string="Fecha Limite")
+    is_done = fields.Boolean(string="Completada", compute='_compute_is_done', store=True)
+    user_id = fields.Many2one(
+        "res.user", string="Asignado a", default=lambda self: self.env.user, required=True
+    )
+
+    @api.depends("state")
+    def _compute_is_done(self):
+        for record in self:
+            record.is_done = record.state == "done"
+
+    @api.contrins("deadline")
+    def _check_deadline(self):
+        for task in self:
+            if task.deadline and task.deadline < fields.Date.today():
+                raise ValidationError("La fecha limite no puede ser anterior a hoy")
+            
+    

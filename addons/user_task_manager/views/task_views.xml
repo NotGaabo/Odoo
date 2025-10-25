@@ -1,0 +1,26 @@
+<odoo>
+    <!-- VISTA FORMULARIO -->
+    <record id='view_user_task_form' model='ir.ui.view'>
+    <field name="name">user.task.form</field>
+    <field name="model">user.task</field>
+    <field name="arch" type='xml'>
+    <form string="Tarea">
+    <sheet>
+    <group>
+    <field name="name"/>
+    <field name="description"/>
+    <field name="priority"/>
+    <field name="state"/>
+    <field name="deadline"/>
+    <field name="user_id" readonly='1'/>
+    <field name="is_done" readonly='1'/>
+    </group>
+    </sheet>
+    </form>
+    
+    </field>
+
+    </record>
+
+    
+</odoo>
